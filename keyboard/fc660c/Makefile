@@ -77,9 +77,9 @@ ACTIONMAP_ENABLE ?= yes		# Use 16bit actionmap instead of 8bit keymap
 #UNIMAP_ENABLE ?= yes		# Universal keymap
 KEYMAP_SECTION_ENABLE ?= yes	# fixed address keymap for keymap editor
 
-#OPT_DEFS += -DNO_ACTION_TAPPING
-#OPT_DEFS += -DNO_ACTION_LAYER
-#OPT_DEFS += -DNO_ACTION_MACRO
+# OPT_DEFS += -DNO_ACTION_TAPPING
+# OPT_DEFS += -DNO_ACTION_LAYER
+# OPT_DEFS += -DNO_ACTION_MACRO
 
 
 #
