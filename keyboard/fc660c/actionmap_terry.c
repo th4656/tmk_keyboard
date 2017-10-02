@@ -15,7 +15,7 @@
 #define AC_BACK     ACTION_MODS_KEY(MOD_LALT, KC_LEFT)
 #define AC_FRWD     ACTION_MODS_KEY(MOD_LALT, KC_RIGHT)
 
-#define CLN			ACTION_MODS_KEY(MOD_LSFT, KC_33)
+#define AC_CLN			ACTION_MODS_KEY(MOD_LSFT, KC_SCLN)
 
 // emulates FC660C default keymap
 #ifdef KEYMAP_SECTION_ENABLE
@@ -28,7 +28,7 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
         TAB, Q,   W,   F,   P,   G,   J,   L,   U,   Y,   SCLN,   LBRC,RBRC,BSLS,     DEL,
         ESC ,A,   R,   S,   T,   D,   H,   N,   E,   I,   O,   QUOT,     ENT,
         LS_2,Z,   X,   C,   V,   B,   K,   M,   COMM,DOT, SLS6,          RS_2,   UP,
-        LCTL,  LGUI,LALT,          SPC5,                    L4,CLN,L3,  LEFT,DOWN,RGHT
+        LCTL,  LGUI,LALT,          SPC5,                    L4, CLN ,L3,  LEFT,DOWN,RGHT
     ),
     [1] = KMAP(
         GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS,
