@@ -16,10 +16,12 @@
 #define AC_FRWD     ACTION_MODS_KEY(MOD_LALT, KC_RIGHT)
 
 #define AC_CLN		ACTION_MODS_KEY(MOD_LSFT, KC_SCLN)
-#define AC_LSH 		ACTION_FUNCTION_TAP(LSHIFT_LCLN)
+#define AC_LSH 		ACTION_FUNCTION_TAP(LSHIFT_CLN)
+#define AC_RSH 		ACTION_FUNCTION_TAP(RSHIFT_SCLN)
 
 enum function_id {
-    LSHIFT_LCLN,
+    LSHIFT_CLN,
+	RSHIFT_SCLN,
 };
 
 #ifdef KEYMAP_SECTION_ENABLE
@@ -27,7 +29,8 @@ const action_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
 #else
 const action_t fn_actions[] PROGMEM = {
 #endif
-	ACTION_FUNCTION_TAP(LSHIFT_LCLN) //FN0
+	ACTION_FUNCTION_TAP(LSHIFT_CLN),
+	ACTION_FUNCTION_TAP(RSHIFT_SCLN)
 };
 
 
@@ -41,7 +44,7 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
         GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     PSCR,
         TAB, Q,   W,   F,   P,   G,   J,   L,   U,   Y,   SCLN,   LBRC,RBRC,BSLS,     DEL,
         ESC ,A,   R,   S,   T,   D,   H,   N,   E,   I,   O,   QUOT,     ENT,
-        LSH, Z,   X,   C,   V,   B,   K,   M,   COMM,DOT, SLS6,          RS_2,   UP,
+        LSH, Z,   X,   C,   V,   B,   K,   M,   COMM,DOT, SLS6,          RSH,   UP,
         LCTL,  LGUI,LALT,          SPC5,                    L4, RALT ,L3,  LEFT,DOWN,RGHT
     ),
     [1] = KMAP(
@@ -102,7 +105,7 @@ void hook_layer_change(uint32_t layer_state)
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch (id) {
-        case LSHIFT_LCLN:
+        case LSHIFT_CLN:
 			// Modified into LShift + tap ':'
             // Shift parentheses example: LShft + tap '('
             // http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses
@@ -129,5 +132,25 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
                 }
             }
             break;
+		case RSHIFT_SCLN:
+			if (record->event.pressed) {
+				if (record->tap.count > 0 && !record->tap.interrupted) {
+					if (record->tap.interrupted) {
+						register_mods(MOD_BIT(KC_RSHIFT));
+					}
+				} else {
+					register_mods(MOD_BIT(KC_RSHIFT));
+				}
+			} else {
+				if (record->tap.count > 0 && !(record->tap.interrupted)) {
+					register_code(KC_SCLN);
+					unregister_code(KC_SCLN);
+					send_keyboard_report();
+					record->tap.count = 0;
+				} else {
+					unregister_mods(MOD_BIT(KC_RSHIFT));
+				}
+			}
+			break;
     }
 }
